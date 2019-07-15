@@ -28,9 +28,10 @@ public class DemoApplicationTests {
     @Test
     public void test1(){
         User user = new User();
-        user.setId(UUID.randomUUID().toString());
-        user.setUsername("hahhaha");
-        user.setPassword("123");
+
+        user.setId(UUID.randomUUID().toString().replace("-",""));
+        user.setUsername("zs");
+        user.setPassword("123456");
         userService.insert(user);
     }
 }
