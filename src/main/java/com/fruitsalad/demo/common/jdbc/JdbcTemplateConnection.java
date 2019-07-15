@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 @Component
-public class JdbcTemplate {
+public class JdbcTemplateConnection {
     @Value("${spring.datasource.driverClassName}")
     private String driverName;
     @Value("${spring.datasource.url}")
@@ -19,19 +19,19 @@ public class JdbcTemplate {
     @Value("${spring.datasource.password}")
     private String password;
 
-    public void getConnection(){
+    public void getConnection() {
         Connection conn = null;
         PreparedStatement ps = null;
         try {
             System.out.println(driverName);
             Class.forName(driverName);
-            conn = DriverManager.getConnection(url,username,password);
+            conn = DriverManager.getConnection(url, username, password);
             String sql = "select * from user";
             ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 // 通过字段检索
-                String id  = rs.getString("id");
+                String id = rs.getString("id");
                 String name = rs.getString("username");
                 String url = rs.getString("password");
 
