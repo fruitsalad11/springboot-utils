@@ -1,15 +1,16 @@
 package com.fruitsalad.demo;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.fruitsalad.demo.common.jdbc.JdbcTemplateConnection;
-import com.fruitsalad.demo.model.sys.User;
-import com.fruitsalad.demo.service.sys.UserService;
+import com.fruitsalad.demo.sys.entity.User;
+import com.fruitsalad.demo.sys.service.IUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.UUID;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -18,7 +19,7 @@ public class DemoApplicationTests {
     private JdbcTemplateConnection jdbcTemplate;
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Test
     public void contextLoads() {
@@ -26,12 +27,16 @@ public class DemoApplicationTests {
     }
 
     @Test
-    public void test1(){
-        User user = new User();
-
-        user.setId(UUID.randomUUID().toString().replace("-",""));
-        user.setUsername("zs");
-        user.setPassword("123456");
-        userService.insert(user);
+    public void testSelect(){
+        EntityWrapper<User> wrapper = new EntityWrapper<>();
+        List<User> userList = userService.selectList(wrapper);
+        System.out.println("总数量：" + userList.size());
     }
+
+    @Test
+    public void testInsert(){
+    }
+
+
+
 }
