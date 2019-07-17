@@ -35,6 +35,11 @@ public class DemoApplicationTests {
 
     @Test
     public void testInsert(){
+        User user = new User();
+        user.setPassword("123");
+        user.setUsername("测试");
+        boolean flag = user.insert();
+        System.out.println("插入结果：" + flag);
     }
 
 

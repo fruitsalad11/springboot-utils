@@ -1,6 +1,6 @@
 package com.fruitsalad.demo.sys.service;
 
-import com.fruitsalad.demo.sys.entity.User;
+import com.fruitsalad.demo.sys.entity.UserInfo;
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.service.IService;
  * @author wzh
  * @since 2019-07-17
  */
-public interface IUserService extends IService<User> {
+public interface IUserInfoService extends IService<UserInfo> {
 
 }

@@ -1,17 +1,18 @@
 package com.fruitsalad.demo.generator;
 
 import com.baomidou.mybatisplus.enums.FieldFill;
+import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
-import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.apache.commons.lang3.StringUtils;
 
@@ -25,6 +26,7 @@ import java.util.Scanner;
  * </p>
  */
 public class MpGenerator {
+    private static DbType dbType = DbType.MYSQL;
     private static String url = "jdbc:mysql://localhost:3306/demo?serverTimezone=UTC&useUnicode=true&useSSL=false&characterEncoding=utf8";
     private static String driverName = "com.mysql.cj.jdbc.Driver";
     private static String username = "root";
@@ -32,8 +34,29 @@ public class MpGenerator {
 
     private static String author = "wzh";
     private static String pageParent = "com.fruitsalad.demo";
-    private static String superEntity = "com.fruitsalad.demo.base.BaseEntity";
+    private static String superEntity = "";
     private static String superController = "";
+
+    private static boolean restControllerStyle = false;
+    private static AbstractTemplateEngine engine = new FreemarkerTemplateEngine();
+    /*显示声明templatePath用于自定义mapper.xml的输出目录设置*/
+    private static String templatePath = "/templates/mapper.xml.ftl";
+
+    /**
+     * <p>
+     *设置实体类填充属性
+     * </p>
+     * @return
+     */
+    public static List<TableFill> getTableFillList() {
+        //实体字段填充注解
+        List<TableFill> tableFillList = new ArrayList<>();
+        tableFillList.add(new TableFill("create_id", FieldFill.INSERT));
+        tableFillList.add(new TableFill("create_date", FieldFill.INSERT));
+        tableFillList.add(new TableFill("update_id", FieldFill.UPDATE));
+        tableFillList.add(new TableFill("update_date", FieldFill.UPDATE));
+        return tableFillList;
+    }
 
     /**
      * <p>
@@ -59,19 +82,18 @@ public class MpGenerator {
         AutoGenerator mpg = new AutoGenerator();
 
 
-
-
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor(author);
         gc.setOpen(false);
-        gc.setFileOverride(false);// 是否覆盖同名文件，默认是false
+        gc.setFileOverride(true);// 是否覆盖同名文件，默认是false
         gc.setActiveRecord(true);// 不需要ActiveRecord特性的请改为false
         gc.setEnableCache(false);// XML 二级缓存
         gc.setBaseResultMap(true);// XML ResultMap
         gc.setBaseColumnList(true);// XML columList
+        gc.setIdType(IdType.UUID);
         /* 自定义文件命名，注意 %s 会自动填充表实体属性！ */
         // gc.setMapperName("%sDao");
         // gc.setXmlName("%sDao");
@@ -84,7 +106,7 @@ public class MpGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setDbType(DbType.MYSQL);
+        dsc.setDbType(dbType);
         dsc.setUrl(url);
         // dsc.setSchemaName("public");
         dsc.setDriverName(driverName);
@@ -116,7 +138,7 @@ public class MpGenerator {
         };
 
         // 如果模板引擎是 freemarker
-        String templatePath = "/templates/mapper.xml.ftl";
+//        String templatePath = "/templates/mapper.xml.ftl";
         // 如果模板引擎是 velocity
         // String templatePath = "/templates/mapper.xml.vm";
 
@@ -163,8 +185,9 @@ public class MpGenerator {
         if (StringUtils.isNoneEmpty(superEntity)) {
             strategy.setSuperEntityClass(superEntity);
         }
-        strategy.setEntityLombokModel(true);
-        strategy.setRestControllerStyle(true);
+        //设置为true时不会生成entity的get、set方法
+        strategy.setEntityLombokModel(false);
+        strategy.setRestControllerStyle(restControllerStyle);
         // 公共父类
         if (StringUtils.isNoneEmpty(superController)) {
             strategy.setSuperControllerClass(superController);
@@ -174,23 +197,15 @@ public class MpGenerator {
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
-
+        System.out.println("tablePrefix:" + strategy.getTablePrefix());
         //自动生成实体字段注解
         strategy.entityTableFieldAnnotationEnable(true);
 
-        //实体字段填充注解
-        List<TableFill> tableFillList = new ArrayList<>();
-        tableFillList.add(new TableFill("username", FieldFill.INSERT));
-        tableFillList.add(new TableFill("create_date", FieldFill.INSERT));
-        tableFillList.add(new TableFill("update_id", FieldFill.UPDATE));
-        tableFillList.add(new TableFill("update_date", FieldFill.UPDATE));
-        TableFill tf = new TableFill("username",FieldFill.DEFAULT);
 
-
-        strategy.setTableFillList(tableFillList);
+        strategy.setTableFillList(getTableFillList());
 
         mpg.setStrategy(strategy);
-        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+        mpg.setTemplateEngine(engine);
         mpg.execute();
     }
 
