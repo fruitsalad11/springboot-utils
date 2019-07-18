@@ -1,4 +1,4 @@
-package com.fruitsalad.demo.common.utils;
+package com.fruitsalad.commons.common.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

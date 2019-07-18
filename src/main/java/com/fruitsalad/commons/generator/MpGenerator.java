@@ -1,4 +1,4 @@
-package com.fruitsalad.demo.generator;
+package com.fruitsalad.commons.generator;
 
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.baomidou.mybatisplus.enums.IdType;
@@ -195,7 +195,7 @@ public class MpGenerator {
         // 写于父类中的公共字段
 //        strategy.setSuperEntityColumns("id");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
-        strategy.setControllerMappingHyphenStyle(true);
+        strategy.setControllerMappingHyphenStyle(false);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         System.out.println("tablePrefix:" + strategy.getTablePrefix());
         //自动生成实体字段注解

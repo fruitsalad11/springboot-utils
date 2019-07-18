@@ -1,4 +1,4 @@
-package com.fruitsalad.demo.common.utils;
+package com.fruitsalad.commons.common.utils;
 
 import java.util.Locale;
 

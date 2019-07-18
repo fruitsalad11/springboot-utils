@@ -1,9 +1,9 @@
-package com.fruitsalad.demo.common.jdbc;
+package com.fruitsalad.commons.common.jdbc;
 
 //数据库连接池  单例模式
 
 
-import com.fruitsalad.demo.common.utils.PropertiesLoader;
+import com.fruitsalad.commons.common.utils.PropertiesLoader;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 

@@ -1,9 +1,9 @@
-package com.fruitsalad.demo.common.jdbc;
+package com.fruitsalad.commons.common.jdbc;
 
 
-import com.fruitsalad.demo.common.utils.JavaBeanUtil;
-import com.fruitsalad.demo.common.utils.JsonTool;
-import com.fruitsalad.demo.common.utils.StringUtil;
+import com.fruitsalad.commons.common.utils.JavaBeanUtil;
+import com.fruitsalad.commons.common.utils.JsonTool;
+import com.fruitsalad.commons.common.utils.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

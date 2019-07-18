@@ -1,8 +1,11 @@
 package com.fruitsalad.demo.sys.web;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.fruitsalad.demo.sys.entity.User;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -17,4 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sys/user")
 public class UserController {
 
+    @RequestMapping("list")
+    public String getList(Model model){
+        User user = new User();
+        Page<User> page = new Page<>(1,3);
+        EntityWrapper<User> wrapper = new EntityWrapper<>();
+        page = user.selectPage(page, wrapper);
+        System.out.println("数量：" + page.getTotal());
+        System.out.println(page);
+        model.addAttribute("page",page);
+        return "sys/user";
+    }
 }

@@ -1,4 +1,4 @@
-package com.fruitsalad.demo.generator;
+package com.fruitsalad.commons.generator;
 
 import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;

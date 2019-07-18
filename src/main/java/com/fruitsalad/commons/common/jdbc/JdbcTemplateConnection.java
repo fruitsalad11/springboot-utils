@@ -1,4 +1,4 @@
-package com.fruitsalad.demo.common.jdbc;
+package com.fruitsalad.commons.common.jdbc;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
