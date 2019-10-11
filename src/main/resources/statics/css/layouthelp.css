@@ -1,0 +1,118 @@
+/*帮助页面 start*/
+.lc_helpLeftnav{
+	position: fixed;
+	top: 120px;
+}
+.lc_helpLeftnav li{
+	width: 190px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	background: #ecf0f5;
+	border: 1px solid #e3e5e7;
+	position: relative;
+	
+}
+.lc_helpSize{
+	font-size: 16px;
+	text-indent:2em;
+	margin-bottom: 20px;
+}
+.lc_helpContleft{
+	margin-right: 100px !important;
+	margin-top: 30px;
+	margin-bottom: 50px;
+}
+.lc_helpContRight{
+	padding-top: 30px;
+	margin-bottom: 50px;
+}
+.lc_helpContRights{
+	padding-top: 60px;
+	margin-bottom: 50px;
+}
+@media only screen and (max-width: 1200px) {
+	.lc_helpContleft{
+	margin-right: 0px !important;
+}
+}
+.lc_thickSize{
+	font-size: 22px;
+	color: black;
+	font-weight: 500;
+	
+}
+.lc_thickCont{
+	font-size: 16px;
+}
+.lc_helpTitle{
+	color: #EB6623;
+	font-size: 16px;
+}
+.lc_appSize{
+	font-size: 16px;
+}
+.lc_appCont{
+	float: left;
+	width: 300px;
+	margin-right: 110px;
+}
+.lc_appFloatleft{
+	width: 45%;
+	float: left;
+}
+.lc_appFloatright{
+	width: 45%;
+	float: right;
+}
+.lc_appAnnotation{
+	font-size: 16px;
+	color: #218d51;
+}
+.lc_triangle{
+	font-size: 35px;
+	position: absolute;
+	top: -4px;
+	right: -3px;
+	color: white;
+	display: none;
+}
+.lc_triangles{
+	font-size: 35px;
+	position: absolute;
+	top: -4px;
+	right: -3px;
+	color: white;
+}
+@media only screen and (max-width: 1200px) {
+	.lc_helpLeftnav{
+		display: none;
+	}
+	/*.lc_mobileUse{
+		margin-top: 70px;
+	}*/
+}
+.lc_mobileNav{
+	overflow: hidden;
+	margin-left: 2%;
+	position: fixed;
+	z-index: 2;
+	display: none;
+}
+.lc_mobileNav li{
+	float: left;
+	background: #ecf0f5;
+	border: 1px solid #e3e5e7;
+	width: 105px;
+	text-align: center;
+}
+.lc_alertImg{
+	margin-top: 30px;
+}
+.lc_yj{
+	margin-top: 0px;
+}
+.lc_centerSize{
+	text-align: center;
+}
+/*帮助页面 end*/

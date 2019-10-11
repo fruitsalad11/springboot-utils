@@ -1,0 +1,104 @@
+.login_header {
+	padding: 20px 20px 20px 130px;
+	background-color: white;
+	line-height: 24px;
+}
+
+.yasin_logo {
+	position: absolute;
+	z-index: 2;
+	top: 2%;
+	left: 20%;
+}
+
+.sys_name {
+	font-size: 16px;
+	color: #fff;
+	font-family: 'Open Sans', sans-serif;
+	padding: 0 20px;
+}
+
+.top_link {
+	float: right;
+	margin-right: 21%;
+}
+.top_link span{
+	color: #979797;
+	margin-right: 10px;
+}
+.download_text {
+	color: #3c8dbc;
+	text-decoration: underline;
+}
+
+.login_footer {
+	/* position: fixed;
+	bottom: 5%; */
+	margin-top:270px;
+	width: 100%;
+	line-height: 36px;
+	height: 36px;
+	background-color: #eeeeee;
+	color: #979797;
+	text-align: center;
+}
+
+/*.login_footer p {
+	padding: 0 10px;
+	margin: 0;
+}*/
+
+@media (max-width: 480px) {
+	html {
+		height: 100%;
+	}
+	.login_header {
+		text-align: right;
+	}
+	.sys_name {
+		padding: 0;
+	}
+	.top_link {
+		float: none;
+		display: none;
+		text-align: right;
+	}
+	.form-signin {
+		margin-top: 60px;
+		width:90%;
+		position: absolute;
+	    top: 0;
+	    right: 0;
+	    left: 0;
+	    bottom: 0;
+	    margin: auto;
+	    height: 400px;
+	}
+	.form-signin .nav-tabs>li {
+		width: 50%;
+		float: left;
+		display: block;
+	}
+}
+.login_cont{
+	background: #EA6622;
+	height: 500px;
+	text-align: center;
+	position: relative;
+}
+.lc_img{
+	position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+.lc_loginRemember{
+	position:relative;
+	top:-33px;
+	right:-95px;
+}
+.lc_loginRemember:hover{
+	text-decoration:underline;
+}

@@ -1,0 +1,17 @@
+
+.login_header{ border-bottom: 1px solid #999; padding: 20px 20px 20px 130px; color:#fff; background-color: #000; opacity: 0.4; box-shadow: 3px 3px 3px #666; line-height: 24px;}
+.yasin_logo{ position:absolute; z-index: 2; top:20px; left:20px;}
+.sys_name{ font-size: 16px; color: #fff; font-family: 'Open Sans', sans-serif; padding: 0 55px;}
+.top_link{ float:right;}
+.download_text{ color: #ddd;}
+.login_footer{ position: fixed; bottom:0; left:0; width: 100%; border-top:1px solid #999; line-height: 36px; height: 36px; background-color: #000; opacity: 0.4; color:#fff;text-align:center;}
+.login_footer p{ padding:0 10px; margin: 0; }
+
+@media (max-width: 480px) {
+ html{height:100%;}	
+ .login_header{text-align: right;}
+ .sys_name{ padding: 0;}	
+ .top_link{ float:none; display: none; text-align: right;}
+ .form-signin{margin-top:60px;}
+ .form-signin .nav-tabs>li{width: 50%; float: left; display: block;}
+}

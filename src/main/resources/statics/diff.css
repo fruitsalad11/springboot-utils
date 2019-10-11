@@ -1,0 +1,70 @@
+.heicom{
+        height: 400px;
+        overflow-y: scroll;
+      }
+.pl0{
+		padding-left: 0!important;
+	}
+.mb0{
+	margin-bottom: 0!important;
+}
+.fz12{
+	font-size: 12px;
+}
+.pd5{
+	padding: 5px;
+}
+.pd10{
+	padding:10px;
+}
+.color_96{
+	color: #969696;
+}
+.block{
+	display: block;
+}
+.posr{
+	position: relative;
+}
+.helpinfo{
+	display: block;
+	font-size: 12px;
+	color: #969696;
+	white-space: nowrap;
+}
+.treebox{
+	border: 1px solid #ddd;
+	border-top: none;
+	padding: 10px;
+	display: none;
+}
+.m-top15{
+	margin-top:15px;
+}
+.cls{
+   position: absolute;
+    right: 36px;
+    top: 17px;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    display: inline-block;
+    font-size: 13px;
+    text-align: center;
+    background: #fff;
+    padding: 0 5px;
+    cursor: pointer;
+}
+.cls:hover{
+	color:#333;
+}
+#personSelect p{
+	padding: 3px 5px;
+	margin-bottom: 0;
+}
+#personSelect p:hover{
+	background: #f1f1f1;
+
+}
+.border {
+    border: 1px solid #e2e2e4;
+}
