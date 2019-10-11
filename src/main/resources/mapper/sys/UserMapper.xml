@@ -14,4 +14,25 @@
         id, username, password
     </sql>
 
+    <sql id="Link_Column_List">
+        a.id, a.username, password, age, sex
+    </sql>
+
+    <select id="getUserList" parameterType="com.fruitsalad.demo.sys.entity.User" resultType="com.fruitsalad.demo.sys.entity.UserAndUserInfo">
+      SELECT <include refid="Link_Column_List"/>
+        FROM `user` a inner join `user_info` b on a.password = b.age
+        <where>
+            1 = 1
+            <if test="id != null and id != ''">
+              	and a.id = #{id}
+            </if>
+            <if test="username != null and username != ''">
+                and a.username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and a.password = #{password}
+            </if>
+        </where>
+    </select>
+
 </mapper>

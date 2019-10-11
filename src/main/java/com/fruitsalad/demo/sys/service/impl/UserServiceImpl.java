@@ -1,14 +1,21 @@
 package com.fruitsalad.demo.sys.service.impl;
 
+
+import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.fruitsalad.demo.sys.entity.User;
+import com.fruitsalad.demo.sys.entity.UserAndUserInfo;
+import com.fruitsalad.demo.sys.entity.UserInfo;
 import com.fruitsalad.demo.sys.mapper.UserMapper;
 import com.fruitsalad.demo.sys.service.IUserService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author wzh
@@ -16,5 +23,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+
+    @Autowired
+    UserMapper userMapper;
+
+    public List<UserAndUserInfo> getUserFullInfoList(Page<UserAndUserInfo> page, User user) {
+        return userMapper.getUserList(page,user);
+    }
 
 }

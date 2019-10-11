@@ -37,6 +37,7 @@ public class MpGenerator {
     private static String superEntity = "";
     private static String superController = "";
 
+    /*Controller类注解是否为restController*/
     private static boolean restControllerStyle = false;
     private static AbstractTemplateEngine engine = new FreemarkerTemplateEngine();
     /*显示声明templatePath用于自定义mapper.xml的输出目录设置*/
