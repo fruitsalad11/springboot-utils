@@ -8,6 +8,7 @@ import org.apache.lucene.index.*;
 import org.apache.lucene.queries.TermFilter;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.*;
+import org.apache.lucene.search.highlight.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.IOContext;
@@ -150,6 +151,8 @@ public class LuceneUtils {
             System.out.println(document.get("fileName"));
             //文件内容
             System.out.println(document.get("fileContent"));
+
+
             //文件大小
             System.out.println(document.get("fileSize"));
             //文件路径
@@ -160,7 +163,7 @@ public class LuceneUtils {
         indexReader.close();
     }
 
-    public void testSearchIndex() throws IOException{
+    public void testSearchIndex() throws IOException, InvalidTokenOffsetsException {
         //创建一个Directory对象，指定索引库存放的路径
         Directory directory = FSDirectory.open(new File("F:" + File.separator + "luceneIndex"));
         //创建IndexReader对象，需要指定Directory对象
@@ -170,6 +173,12 @@ public class LuceneUtils {
         //创建一个TermQuery（精准查询）对象，指定查询的域与查询的关键词
         //创建查询
         Query query = new TermQuery(new Term("fileName","test.txt"));
+
+        Formatter formatter = new SimpleHTMLFormatter("<em>","</em>");
+        QueryScorer queryScorer = new QueryScorer(query);
+
+        Highlighter highlighter = new Highlighter(formatter,queryScorer);
+
         //执行查询
         //第一个参数是查询对象，第二个参数是查询结果返回的最大值
         TopDocs topDocs = indexSearcher.search(query, 10);
@@ -186,7 +195,8 @@ public class LuceneUtils {
             //文件名称
             System.out.println(document.get("fileName"));
             //文件内容
-            System.out.println(document.get("fileContent"));
+            String fileContent = highlighter.getBestFragment(new IKAnalyzer(),"fileContent",document.get("fileContent"));
+            System.out.println(fileContent);
             //文件大小
             System.out.println(document.get("fileSize"));
             //文件路径
