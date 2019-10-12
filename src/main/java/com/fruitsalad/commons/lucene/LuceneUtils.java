@@ -5,13 +5,16 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.*;
 import org.apache.lucene.index.*;
+import org.apache.lucene.queries.TermFilter;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.IOContext;
 import org.apache.lucene.store.RAMDirectory;
+import org.apache.lucene.util.Bits;
 import org.apache.lucene.util.Version;
+import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,20 +33,31 @@ public class LuceneUtils {
     //创建索引
     public void testCreateIndex() throws IOException {
         //指定索引库的存放位置Directory对象
-        Directory directory = FSDirectory.open(new File("F:" + File.separator + "luceneIndex"));
-        //索引库还可以存放到内存中
-//        Directory directory = new RAMDirectory(dir, IOContext.DEFAULT);
+        Directory dir = FSDirectory.open(new File("F:" + File.separator + "luceneIndex"));
+        //索引库还可以存放到内存中（写入内存不会持久化存储）
+        IOContext ioContext = new IOContext();
+        Directory directory = new RAMDirectory(dir,ioContext);
 
         //指定一个标准分析器，对文档内容进行分析
-        Analyzer analyzer = new StandardAnalyzer();
+        Analyzer analyzer = new IKAnalyzer();
 
         //创建indexwriterCofig对象
         //第一个参数： Lucene的版本信息，可以选择对应的lucene版本也可以使用LATEST
         //第二根参数：分析器对象
         IndexWriterConfig config = new IndexWriterConfig(Version.LATEST, analyzer);
 
+        IndexWriterConfig dfConfig = new IndexWriterConfig(Version.LATEST, analyzer);
+
+        LogMergePolicy mergePolicy = new LogByteSizeMergePolicy();
+        //达到3个文件时就和合并
+        mergePolicy.setMergeFactor(3);
+        dfConfig.setMergePolicy(mergePolicy);
+        dfConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
+
         //创建一个indexwriter对象
         IndexWriter indexWriter = new IndexWriter(directory, config);
+
+        IndexWriter dfWriter = new IndexWriter(dir,dfConfig);
 
         //原始文档的路径
         File file = new File("F:" + File.separator + "lucenefile");
@@ -77,6 +91,8 @@ public class LuceneUtils {
             String fileContent = FileUtils.readFileToString(file2,"UTF-8");
             //文件内容域
             Field fileContentField = new TextField("fileContent", fileContent, Field.Store.YES);
+            //设置激励因子（影响得分算法的值，从而影响结果排名）
+//            fileContentField.setBoost(100);
 
             String fileContent2 = FileUtils.readFileToString(file2,"UTF-8");
             Field fileContentField2 = new TextField("fileContent", fileContent2, Field.Store.YES);
@@ -91,6 +107,9 @@ public class LuceneUtils {
         }
         //关闭IndexWriter对象。
         indexWriter.close();
+
+        dfWriter.addIndexes(directory);
+        dfWriter.close();
     }
 
 
@@ -98,7 +117,7 @@ public class LuceneUtils {
         //创建一个Directory对象，指定索引库存放的路径
         Directory dir = FSDirectory.open(new File("F:" + File.separator + "luceneIndex"));
         //索引库还可以存放到内存中
-        Directory directory = new RAMDirectory(dir, IOContext.DEFAULT);
+        Directory directory = new RAMDirectory(dir,IOContext.DEFAULT);
         //创建IndexReader对象，需要指定Directory对象
         IndexReader indexReader = DirectoryReader.open(directory);
         //创建Indexsearcher对象，需要指定IndexReader对象
@@ -108,8 +127,14 @@ public class LuceneUtils {
         //使用MatchAllDocsQuery查询索引目录中的所有文档
         Query query = new MatchAllDocsQuery();
         //执行查询
+
+        //排序
+        Sort sort = new Sort(new SortField("fileSize", SortField.Type.LONG, true));
+        //过滤
+        Filter filter = new TermFilter(new Term("fileName","test.txt"));
+
         //第一个参数是查询对象，第二个参数是查询结果返回的最大值
-        TopDocs topDocs = indexSearcher.search(query, 10);
+        TopDocs topDocs = indexSearcher.search(query,filter,50,sort);
 
         //查询结果的总条数
         System.out.println("查询结果的总条数："+ topDocs.totalHits);
@@ -311,6 +336,7 @@ public class LuceneUtils {
 
     public static void main(String[] args) throws Exception {
         LuceneUtils luceneUtils = new LuceneUtils();
-        luceneUtils.testQueryParser();
+//        luceneUtils.testCreateIndex();
+        luceneUtils.testMatchAllDocsQuery();
     }
 }
