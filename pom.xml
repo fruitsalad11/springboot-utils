@@ -20,7 +20,7 @@
 		<velocity.version>1.7</velocity.version>
 		<druid.version>0.2.23</druid.version>
 		<shiro.version>1.4.1</shiro.version>
-		<lucene.version>4.10.3</lucene.version>
+		<lucene.version>8.2.0</lucene.version>
 	</properties>
 
 	<dependencies>
