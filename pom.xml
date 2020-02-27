@@ -78,7 +78,7 @@
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
         </dependency>
-		<!--bean getset注入功能-->
+		<!--bean 自动注入功能-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
